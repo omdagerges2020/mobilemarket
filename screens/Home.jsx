@@ -1,13 +1,13 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import tw from "twrnc";
 import { Link, useNavigation } from "@react-navigation/native";
 import { Avatar, Card } from "react-native-paper";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomeProducts } from "../reduxsystem/slices/homeProductsSlice";
 import Header from "./pageshome/Header";
 import LoadingPage from "./LoadingPage";
+import { AntDesign } from "@expo/vector-icons";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
@@ -43,117 +43,91 @@ const Home = () => {
         <View style={tw`mt-1 w-full flex-row justify-between px-3`}>
           {/*  */}
           <View>
-            <Text style={tw`font-bold text-black text-3xl`}>Sale</Text>
-            <Text style={tw`text-gray-500`}>You've never seen it before!</Text>
-          </View>
-          <Link to={{ screen: "Profile", params: { id: "jane" } }}>
-            View all
-          </Link>
-          {/* pics scroll */}
-        </View>
-        {/* Cards */}
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={tw`flex-row p-5`}
-          styel={tw`w-full h-full`}
-        >
-          {products.map((prod, index) => (
-            <View key={index}>
-              <Card onPress={()=> navigate.navigate("SingleProduct", {productId: prod.id, productBrand: prod.brand})} style={tw`mt-5 w-[200px]  px-0 mr-5`}>
-                {/* Card image */}
-                <Card.Cover source={{ uri: `${prod.thumbnail}` }} />
-                <Card.Content style={tw`px-1 mt-2`}>
-                  <View style={tw`flex-row gap-2`}>
-                    <FontAwesome name="star" size={18} color={"yellow"} />
-                    <FontAwesome name="star" size={18} color={"yellow"} />
-                    <FontAwesome name="star" size={18} color={"yellow"} />
-                    <FontAwesome name="star" size={18} color={"yellow"} />
-                    <FontAwesome name="star" size={18} color={"yellow"} />
-                    <Text>({prod.rating})</Text>
-                  </View>
-                  {/* title */}
-                  <Text variant="bodyMedium" style={tw`text-gray-500`}>
-                    {prod.title}
-                  </Text>
-                  {/* Category */}
-                  <Text
-                    variant="bodyMedium"
-                    style={tw`text-black font-bold capitalize`}
-                  >
-                    {prod.category}
-                  </Text>
-                  {/* Price */}
-                  <View style={tw`flex-row gap-3`}>
-                    <Text style={tw`line-through text-red-700`}>
-                      {(
-                        (prod.discountPercentage / 100) * prod.price +
-                        prod.price
-                      ).toFixed(2)}
-                      $
-                    </Text>
-                    <Text style={tw`ml-px`}>{prod.price}$</Text>
-                  </View>
-                </Card.Content>
-              </Card>
-            </View>
-          ))}
-        </ScrollView>
-
-        {/* sale-part */}
-        <View style={tw`mt-7 w-full flex-row justify-between px-3`}>
-          {/*  */}
-          <View>
             <Text style={tw`font-bold text-black text-3xl`}>New</Text>
             <Text style={tw`text-gray-500`}>You've never seen it before!</Text>
           </View>
-          <Link to={{ screen: "Profile", params: { id: "jane" } }}>
-            View all
-          </Link>
+          <Link to={{ screen: "Shop" }}>View all</Link>
           {/* pics scroll */}
         </View>
         {/* Cards */}
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={tw`flex-row p-5`}
-          styel={tw`w-full h-full`}
-        >
-          {products.map((prod, index) => (
-            <View key={index}>
-                <Card onPress={()=> navigate.navigate("SingleProduct", {productId: prod.id})} style={tw`mt-5 w-[200px]  px-0 mr-5`}>
-                  {/* Card image */}
-                  <Card.Cover source={{ uri: `${prod.thumbnail}` }} />
-                  <Card.Content style={tw`px-1 mt-2`}>
-                    <View style={tw`flex-row gap-2`}>
-                      <FontAwesome name="star" size={18} color={"yellow"} />
-                      <FontAwesome name="star" size={18} color={"yellow"} />
-                      <FontAwesome name="star" size={18} color={"yellow"} />
-                      <FontAwesome name="star" size={18} color={"yellow"} />
-                      <FontAwesome name="star" size={18} color={"yellow"} />
-                      <Text>({prod.rating})</Text>
-                    </View>
-                    {/* title */}
-                    <Text variant="bodyMedium" style={tw`text-gray-500`}>
-                      {prod.title}
-                    </Text>
-                    {/* Category */}
-                    <Text
-                      variant="bodyMedium"
-                      style={tw`text-black font-bold capitalize`}
+        <View style={tw`mb-11 w-full flex-row flex-wrap mt-2 justify-center gap-6`}>
+          {/* <ScrollView> */}
+          {products.map((data, index) => (
+            <View key={index} style={tw``}>
+              <Card style={tw`w-40  h-80  mb-5 mt-4 `}>
+                <View style={tw`relative `}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigate.navigate("SingleProduct", {
+                        itemsId: data.id,
+                        productBrand: data.brand,
+                      })
+                    }
+                  >
+                    <Card.Cover
+                      style={tw`p-3`}
+                      source={{ uri: data.images[0] }}
+                    />
+                  </TouchableOpacity>
+                  <View style={tw``}>
+                    <View
+                      style={tw`bg-white absolute right-0 bottom-[-5]  w-10 h-10 flex justify-center items-center rounded-full`}
                     >
-                      {prod.category}
+                      <AntDesign name="hearto" size={20} />
+                    </View>
+                  </View>
+                </View>
+                <View style={tw`mx-2 my-3`}>
+                  <View style={tw`flex-row`}>
+                    <AntDesign
+                      name="star"
+                      style={tw`mt-1`}
+                      size={18}
+                      ssw
+                      color="gold"
+                    />
+                    <AntDesign
+                      name="star"
+                      style={tw`mt-1`}
+                      size={18}
+                      ssw
+                      color="gold"
+                    />
+                    <AntDesign
+                      name="star"
+                      style={tw`mt-1`}
+                      size={18}
+                      ssw
+                      color="gold"
+                    />
+                    <AntDesign
+                      name="star"
+                      style={tw`mt-1`}
+                      size={18}
+                      ssw
+                      color="gold"
+                    />
+
+                    <Text style={tw`mt-1`}>({data.rating})</Text>
+                  </View>
+                  <Text style={tw`text-gray-400 font-bold text-xs`}>
+                    {data.title}
+                  </Text>
+                  <Text style={tw`font-bold text-lg`}>{data.category}</Text>
+                  <View style={tw`flex-row`}>
+                    <Text style={tw`line-through text-gray-400 font-bold`}>
+                      {data.price}$
                     </Text>
-                    {/* Price */}
-                    <Text>
-                      <Text style={tw`text-red-700`}>Price: </Text>
-                      {prod.price}$
+                    <Text style={tw` text-red-600 font-bold`}>
+                      {data.discountPercentage}$
                     </Text>
-                  </Card.Content>
-                </Card>
+                  </View>
+                </View>
+              </Card>
             </View>
           ))}
-        </ScrollView>
+          {/* </ScrollView> */}
+        </View>
       </View>
     </ScrollView>
   );

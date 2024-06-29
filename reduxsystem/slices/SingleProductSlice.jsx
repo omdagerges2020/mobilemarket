@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from "axios";
 
 
+
 // data
 const data = {
-    singlePrdouct: [],
+    singlePrdouct: null,
     loadingSingleProduct: true,
     errorSingleProduct: null,
     bagProducts: [],
-    counter: 1,
 }
 
 // Getting products Function
@@ -31,8 +31,50 @@ const SingleProductSlice = createSlice({
     name: "SingleProduct",
     initialState: data,
     reducers: {
+        // AddToBag
          addToBag: (state,action)=>{
-            state.bagProducts.push({...action.payload});
+            const checkArr = state.bagProducts.some((prod)=>{
+                return prod.id == action.payload.id;
+            })
+            if(!checkArr){
+                state.bagProducts.push({...action.payload, itemsCount: 1});
+            }else {
+                const newArr = state.bagProducts.map((prod)=>{
+                    if(prod.id == action.payload.id){
+                        prod.itemsCount++
+                    }
+                    return prod;
+                })
+                state.bagProducts = newArr;
+            }
+            
+        },
+        // increment
+        increment: (state,action)=>{
+            const newArr = state.bagProducts.map((prod)=>{
+                if(prod.id == action.payload.id){
+                    prod.itemsCount++
+                }
+                return prod;
+            })
+            state.bagProducts = newArr;
+        },
+        // decrement
+        decrement: (state,action)=>{
+            const newArr = state.bagProducts.map((prod)=>{
+                if(prod.id == action.payload.id && action.payload.itemsCount > 1){
+                    prod.itemsCount--
+                }
+                return prod;
+            })
+            state.bagProducts = newArr;
+        },
+        // delete product
+        deleteItem: (state,action)=>{
+            const deletedItems = state.bagProducts.filter((obj)=>{
+                return obj.id !== action.payload.id
+            })
+            state.bagProducts = deletedItems;
         }
     },
     extraReducers: (builder)=>{
@@ -52,4 +94,4 @@ const SingleProductSlice = createSlice({
 })
 
 export const SingleProd = SingleProductSlice.reducer;
-export const {addToBag} = SingleProductSlice.actions;
+export const {addToBag, increment, decrement, deleteItem} = SingleProductSlice.actions;

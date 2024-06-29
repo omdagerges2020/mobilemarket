@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import tw from "twrnc";
 import { getCategories } from "../../reduxsystem/slices/CategoriesSlice";
 import { useNavigation } from "@react-navigation/native";
+import LoadingPage from "../LoadingPage";
 
 
 const Products = () => {
-  const { categories } = useSelector((state) => state.allCategories);
+  const { categories, loadingCategories, errorCategories} = useSelector((state) => state.allCategories);
 
   const navigate = useNavigation();
 
@@ -19,6 +20,11 @@ const Products = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, []);
+
+  // Loading condition
+  if(loadingCategories){
+    return <LoadingPage/>
+  }
 
   return (
     <ScrollView>

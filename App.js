@@ -11,16 +11,21 @@ import Profile from "./screens/Profile/Profile";
 import Categoryname from "./screens/SingleCategory/Categoryname";
 import SingleProduct from "./screens/SingleProduct/SingleProduct";
 import { Entypo } from "@expo/vector-icons";
-
+import AllReviews from "./screens/AllReviews/AllReviews";
+import Startup from "./screens/StartupHome/Startup";
+import SignUp from "./screens/Login-System/SignUp";
+import Login from "./screens/Login-System/Login";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Startup">
+          <Stack.Screen name="Startup" component={Startup} options={{
+            headerShown: false,
+          }}/>
           <Stack.Screen
             name="Home"
             component={Maintaps}
@@ -35,7 +40,16 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Favourits" component={Favourits} />
+          <Stack.Screen name="SignUp" component={SignUp} options={{
+            headerTitle: "",
+            headerBackTitleVisible: true,
+          }}/>
+          <Stack.Screen name="Login" component={Login} options={{
+            headerTitle: "",
+            headerBackTitleVisible: true,
+          }}/>
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="AllReviews" component={AllReviews} />
           <Stack.Screen name="Categoryname" component={Categoryname} />
           <Stack.Screen
             name="SingleProduct"
@@ -48,7 +62,7 @@ export default function App() {
             }}
           />
         </Stack.Navigator>
-        {/* <StatusBar style="auto" /> */}
+        <StatusBar style="auto" />
       </NavigationContainer>
     </Provider>
   );

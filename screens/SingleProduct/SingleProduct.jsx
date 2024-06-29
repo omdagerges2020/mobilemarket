@@ -7,17 +7,20 @@ import LoadingPage from "../LoadingPage";
 import tw from "twrnc";
 import { AntDesign } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
-// import SingleProduct from './SingleProduct';
+
 
 const SingleProduct = () => {
   // useSelector
-  const { singlePrdouct, loadingSingleProduct, errorSingleProduct } =
+  const { singlePrdouct, loadingSingleProduct } =
     useSelector((state) => state.SingleProd);
+
+    // console.log(singlePrdouct);
 
   // useRoute
   const {
-    params: { productId, productBrand },
+    params: { itemsId, productBrand},
   } = useRoute();
+  console.log(productBrand);
 
   // Dispatching
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const SingleProduct = () => {
 
   // useEffect
   useEffect(() => {
-    dispatch(getSingleProduct(productId));
+    dispatch(getSingleProduct(itemsId));
     navigate.setOptions({
       title: `${productBrand}`,
     });
@@ -120,7 +123,7 @@ const SingleProduct = () => {
                 <Text
                   style={tw`mt-3 font-bold underline`}
                   onPress={() =>
-                    navigate.navigate("All Reviews", singlePrdouct)
+                    navigate.navigate("AllReviews", singlePrdouct)
                   }
                 >
                   {" "}

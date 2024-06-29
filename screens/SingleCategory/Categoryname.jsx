@@ -17,7 +17,7 @@ const Categoryname = ({
   },
 }) => {
   // console.log(categoryName);
-  const { categoryProducts, loadingCategoryProducts, errorCategoryProducts } =
+  const { categoryProducts, loadingCategoryProducts } =
     useSelector((state) => state.categoryItems);
   // console.log(categoryProducts);
 
@@ -44,22 +44,6 @@ const Categoryname = ({
       <View style={tw`bg-white`}>
         {/* sections part */}
         <View style={tw`w-full bg-white px-4 shadow-lg`}>
-          {/* Tabs sections */}
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={tw`flex-row gap-3`}
-            style={tw`w-full`}
-          >
-            {categoryProducts.map((prod, index) => (
-              <View
-                style={tw`bg-black rounded-full px-4 py-2 mt-3`}
-                key={index}
-              >
-                <Text style={tw`text-white`}>{prod.brand}</Text>
-              </View>
-            ))}
-          </ScrollView>
           {/* sort & filter & list-display */}
           <View
             style={tw`flex-row w-full justify-between bg-[#f9f9f9] mt-6 p-2 mb-3`}
@@ -85,7 +69,7 @@ const Categoryname = ({
         >
           {categoryProducts.map((prod, index) => (
             <View key={index}>
-              <Card onPress={()=> navigate.navigate("SingleProduct", {productId: prod.id, productBrand: prod.brand})} style={tw`mt-5 w-[180px] relative`}>
+              <Card onPress={()=>navigate.navigate("SingleProduct", {itemsId: prod.id, productBrand: prod.brand})}>
                 {/* Card image */}
                 <Card.Cover source={{ uri: `${prod.thumbnail}` }} />
                 {/* heart icon */}

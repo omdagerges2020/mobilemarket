@@ -10,11 +10,16 @@ import { Link } from "@react-navigation/native";
 import tw from "twrnc";
 import { EvilIcons } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
-
+import { Badge } from 'react-native-paper';
+import { View } from "react-native";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
 const Maintaps = () => {
+  // useselector
+  const { bagProducts } = useSelector((state) => state.SingleProd);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -73,7 +78,10 @@ const Maintaps = () => {
           headerShown: false,
           tabBarLabel: "Bag",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="shopping" color={color} size={30} />
+            <View>
+              <MaterialCommunityIcons name="shopping" color={color} size={30} style={tw`relative`}/>
+              <Badge style={tw`absolute left-6 text-white`}>{bagProducts.length}</Badge>
+            </View>
           ),
           tabBarActiveTintColor: "red",
         }}

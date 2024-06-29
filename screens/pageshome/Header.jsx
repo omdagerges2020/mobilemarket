@@ -1,12 +1,12 @@
 import { View, Image, Text } from "react-native";
 import React from "react";
-const imgBg = require("../../assets/main.png");
 import tw from "twrnc";
 import { Button } from "react-native-paper";
 
+const imgBg = require("../../assets/main.png");
+
 const Header = () => {
   return (
-   
       <View>
         <Image source={imgBg} style={tw`w-full`} />
         <View style={tw`absolute top-[40%] right-[50%]`}>

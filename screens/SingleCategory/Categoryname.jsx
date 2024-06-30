@@ -69,11 +69,11 @@ const Categoryname = ({
         >
           {categoryProducts.map((prod, index) => (
             <View key={index}>
-              <Card onPress={()=>navigate.navigate("SingleProduct", {itemsId: prod.id, productBrand: prod.brand})}>
+              <Card style={tw`w-40 mt-4`} onPress={()=>navigate.navigate("SingleProduct", {itemsId: prod.id, productBrand: prod.brand})}>
                 {/* Card image */}
                 <Card.Cover source={{ uri: `${prod.thumbnail}` }} />
                 {/* heart icon */}
-                <View style={tw`bg-white rounded-full w-[30px] h-[30px] absolute justify-center items-center top-45 left-[150px] shadow-md z-100`}>
+                <View style={tw`bg-white rounded-full w-[30px] h-[30px] absolute justify-center items-center top-45 left-[135px] shadow-md z-100`}>
                   <EvilIcons name="heart" size={24} color="black" />
                 </View>
 

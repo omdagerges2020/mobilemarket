@@ -12,11 +12,8 @@ const googleImage = require("../../assets/Google.png");
 // Facebook Image
 const facebookImage = require("../../assets/Facebook.png");
 
-
-const checkreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-
 const Login = () => {
+  const checkreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   // Navigation
   const navigate = useNavigation();
 
@@ -36,13 +33,12 @@ const Login = () => {
     setLabelPassword(true);
   };
 
-
   // Handle Form
   const handleForm = () => {
-    // console.log(name);
+    // console.log(checkreg.test(email));
     if (name === "" || !isNaN(name) || name.length < 4) {
       setLabelName(false);
-    } else if (email === "" || checkreg.test(email)) {
+    } else if (email === "" || !checkreg.test(email)) {
       resetLabels();
       // setValidName(true)
       setLabelEmail(false);
@@ -50,11 +46,10 @@ const Login = () => {
       resetLabels();
       setLabelPassword(false);
     } else {
-      resetLabels()
+      resetLabels();
       navigate.navigate("Login");
     }
   };
-
 
   return (
     <View style={tw`w-full h-full bg-[#f9f9f9] px-3`}>
@@ -72,31 +67,66 @@ const Login = () => {
               colors: { onSurfaceVariant: labelName ? "black" : "red" },
             }}
             onChangeText={(name) => setName(name)}
-          ></TextInput>
-          {<Ionicons style={tw`absolute top-5 right-0 px-4`} name="checkmark-outline" size={24} color="#37ae5d" />}
-          
+          />
+          {name.length > 3 ? (
+            <Ionicons
+              style={tw`absolute top-5 right-0 px-4`}
+              name="checkmark-outline"
+              size={24}
+              color="#37ae5d"
+            />
+          ) : (
+            ""
+          )}
         </View>
 
         {/* Email Input */}
-        <TextInput
-          underlineColor="transparent"
-          style={tw`bg-white py-2 shadow-md`}
-          label="Email"
-          value={email}
-          theme={{ colors: { onSurfaceVariant: labelEmail ? "black" : "red" } }}
-          onChangeText={(email) => setEmail(email)}
-        />
+        <View style={tw`relative`}>
+          <TextInput
+            underlineColor="transparent"
+            style={tw`bg-white py-2 shadow-md`}
+            label={labelName ? "Email" : "Enter your email"}
+            value={email}
+            theme={{
+              colors: { onSurfaceVariant: labelEmail ? "black" : "red" },
+            }}
+            onChangeText={(email) => setEmail(email)}
+          />
+          {checkreg.test(email) ? (
+            <Ionicons
+              style={tw`absolute top-5 right-0 px-4`}
+              name="checkmark-outline"
+              size={24}
+              color="#37ae5d"
+            />
+          ) : (
+            ""
+          )}
+        </View>
+
         {/* Password Input */}
-        <TextInput
-          underlineColor="transparent"
-          style={tw`bg-white py-2 shadow-md`}
-          label="Password"
-          value={password}
-          theme={{
-            colors: { onSurfaceVariant: labelPassword ? "black" : "red" },
-          }}
-          onChangeText={(password) => setPassword(password)}
-        />
+        <View style={tw`relative`}>
+          <TextInput
+            underlineColor="transparent"
+            style={tw`bg-white py-2 shadow-md`}
+            label="Password"
+            value={password}
+            theme={{
+              colors: { onSurfaceVariant: labelPassword ? "black" : "red" },
+            }}
+            onChangeText={(password) => setPassword(password)}
+          />
+          {password.length > 4 ? (
+            <Ionicons
+              style={tw`absolute top-5 right-0 px-4`}
+              name="checkmark-outline"
+              size={24}
+              color="#37ae5d"
+            />
+          ) : (
+            ""
+          )}
+        </View>
       </View>
       {/* End Form */}
 

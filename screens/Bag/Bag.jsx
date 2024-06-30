@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import tw from "twrnc";
 import { Button } from "react-native-paper";
 import { EvilIcons } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ import {
   increment,
 } from "../../reduxsystem/slices/SingleProductSlice";
 import { AntDesign } from "@expo/vector-icons";
-import Dialog from "react-native-dialog";
+
 
 const Bag = () => {
   // useSelector
@@ -21,20 +21,6 @@ const Bag = () => {
   // Dispatching
   const dispatch = useDispatch();
 
-  // const [visibleId, setVisibleId] = useState(null);
-
-  // const showDialog = (id) => {
-  //   setVisibleId(id);
-  // };
-
-  // const handleCancel = () => {
-  //   setVisibleId(null);
-  // };
-
-  // const handleDelete = (prod) => {
-  //   dispatch(deleteItem(prod))
-  //   setVisibleId(null);
-  // };
 
   return (
     <ScrollView>
@@ -81,23 +67,6 @@ const Bag = () => {
                         size={24}
                         color="black"
                       />
-                      {/* Start Alert dialog */}
-                      {/* <Dialog.Container visible={visibleId === prod.id}>
-                        <Dialog.Title>Product delete</Dialog.Title>
-                        <Dialog.Description>
-                          Do you want to delete this Product? You cannot undo
-                          this action.
-                        </Dialog.Description>
-                        <Dialog.Button
-                          label="Cancel"
-                          onPress={() => handleCancel()}
-                        />
-                        <Dialog.Button
-                          label="Delete"
-                          onPress={() => handleDelete(prod)}
-                        />
-                      </Dialog.Container> */}
-                      {/* End Alert dialog */}
                       <EvilIcons name="heart" size={30} color="black" />
                     </View>
                   </View>

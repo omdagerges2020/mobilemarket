@@ -53,7 +53,7 @@ const Home = () => {
         <View style={tw`mb-11 w-full flex-row flex-wrap mt-2 justify-center gap-6`}>
           {/* <ScrollView> */}
           {products.map((data, index) => (
-            <View key={index} style={tw``}>
+            <View key={index}>
               <Card style={tw`w-40  h-80  mb-5 mt-4 `}>
                 <View style={tw`relative `}>
                   <TouchableOpacity

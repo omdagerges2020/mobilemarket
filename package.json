@@ -22,7 +22,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.2",
-    "react-native-dialog": "^9.3.0",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-paper": "^5.12.3",
     "react-native-paper-select": "^1.1.1",
